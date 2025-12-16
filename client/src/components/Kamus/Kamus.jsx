@@ -32,95 +32,87 @@ function Kamus() {
   };
 
   return (
-  <div style={{ padding: "24px", maxWidth: "800px", margin: "0 auto" }}>
-    <h1>Kamus Kata Badan Pusat Statistik</h1>
+    <div className="kamus-container">
+      <h1 className="kamus-title">Kamus Kata Badan Pusat Statistik</h1>
 
-    <form onSubmit={handleSubmit} style={{ marginBottom: "32px" }}>
-      <div style={{ marginBottom: "12px" }}>
-        <input
-          type="text"
-          placeholder="Kata"
-          value={form.term}
-          onChange={(e) =>
-            setForm({ ...form, term: e.target.value })
-          }
-          required
-        />
-      </div>
-
-      <div style={{ marginBottom: "12px" }}>
-        <input
-          type="text"
-          placeholder="Ejaan (contoh: /buku/)"
-          value={form.pronunciation}
-          onChange={(e) =>
-            setForm({ ...form, pronunciation: e.target.value })
-          }
-        />
-      </div>
-
-      <div style={{ marginBottom: "12px" }}>
-        <textarea
-          placeholder="Definisi kata"
-          value={form.definition}
-          onChange={(e) =>
-            setForm({ ...form, definition: e.target.value })
-          }
-          required
-          rows={4}
-        />
-      </div>
-
-      <div style={{ marginBottom: "16px" }}>
-        <input
-          type="text"
-          placeholder="Contoh penggunaan dalam kalimat"
-          value={form.example}
-          onChange={(e) =>
-            setForm({ ...form, example: e.target.value })
-          }
-        />
-      </div>
-
-      <button type="submit">Simpan Kata</button>
-    </form>
-
-    {words.length === 0 ? (
-      <p>Belum ada kata yang ditambahkan.</p>
-    ) : (
-      words.map((word) => (
-        <div
-          key={word.id}
-          style={{
-            border: "1px solid #ddd",
-            borderRadius: "6px",
-            padding: "16px",
-            marginBottom: "12px",
-          }}
-        >
-          <h3>
-            {word.term}{" "}
-            {word.pronunciation && (
-              <small style={{ fontWeight: "normal" }}>
-                ({word.pronunciation})
-              </small>
-            )}
-          </h3>
-
-          <p>
-            <strong>Definisi:</strong> {word.definition}
-          </p>
-
-          {word.example && (
-            <p style={{ fontStyle: "italic" }}>
-              Contoh: “{word.example}”
-            </p>
-          )}
+      <form onSubmit={handleSubmit} className="kamus-form">
+        <div className="form-group">
+          <input
+            className="form-input"
+            type="text"
+            placeholder="Kata Istilah (Term)"
+            value={form.term}
+            onChange={(e) => setForm({ ...form, term: e.target.value })}
+            required
+          />
         </div>
-      ))
-    )}
-  </div>
-);
+
+        <div className="form-group">
+          <input
+            className="form-input"
+            type="text"
+            placeholder="Cara Baca / Ejaan (cth: /sensus/)"
+            value={form.pronunciation}
+            onChange={(e) => setForm({ ...form, pronunciation: e.target.value })}
+          />
+        </div>
+
+        <div className="form-group">
+          <textarea
+            className="form-textarea"
+            placeholder="Definisi lengkap..."
+            value={form.definition}
+            onChange={(e) => setForm({ ...form, definition: e.target.value })}
+            required
+            rows={3}
+          />
+        </div>
+
+        <div className="form-group">
+          <input
+            className="form-input"
+            type="text"
+            placeholder="Contoh penggunaan dalam kalimat..."
+            value={form.example}
+            onChange={(e) => setForm({ ...form, example: e.target.value })}
+          />
+        </div>
+
+        <button type="submit" className="btn-submit">Simpan ke Kamus</button>
+      </form>
+
+      <div className="word-list">
+        {words.length === 0 ? (
+          <div className="empty-state">
+            <p>Belum ada istilah yang tercatat dalam kamus.</p>
+          </div>
+        ) : (
+          words.map((word) => (
+            <div key={word.id} className="word-card">
+              <div className="word-header">
+                <h3 className="word-term">{word.term}</h3>
+                {word.pronunciation && (
+                  <span className="word-pronunciation">
+                    {word.pronunciation}
+                  </span>
+                )}
+              </div>
+
+              <div className="word-body">
+                <p className="word-definition">{word.definition}</p>
+                
+                {word.example && (
+                  <div className="word-example-box">
+                    "{word.example}"
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default Kamus;
