@@ -7,6 +7,11 @@ import './Kamus.css';
 function Kamus({token, role}) {
   const [words, setWords] = useState([]);
   const [wordToEdit, setWordToEdit] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [history, setHistory] = useState(() => {
+    const saved = localStorage.getItem('searchHistory');
+    return saved ? JSON.parse(saved) : [];
+  });
 
   const fetchWords = async () => {
     try {
@@ -21,24 +26,91 @@ function Kamus({token, role}) {
     fetchWords();
   }, []);
 
+  const saveToHistory = (term) => {
+    if (!term.trim()) return;
+    let newHistory = [term, ...history];
+    newHistory = [...new Set(newHistory)].slice(0, 5);
+
+    setHistory(newHistory);
+    localStorage.setItem('searchHistory', JSON.stringify(newHistory));
+  };
+
+  const clearHistory = () => {
+    setHistory([]);
+    localStorage.removeItem('searchHistory');
+  };
+
+  const handleHistoryClick = (term) => {
+    setSearchTerm(term);
+  };
+
   const handleCancelEdit = () => {
     setWordToEdit(null);
   }
 
+  const filteredWords = words.filter((word) => {
+    const searchLower = searchTerm.toLowerCase();
+    const termMatch = word.term.toLowerCase().includes(searchLower);
+    const defMatch = word.definition.toLowerCase().includes(searchLower);
+    return termMatch || defMatch;
+  });
+
   return (
     <div className="kamus-container">
       <h1 className="kamus-title">Kamus Kata Badan Pusat Statistik</h1>
-      <KamusForm 
-        onSuccess={fetchWords} 
-        token={token} 
-        wordToEdit={wordToEdit} 
-        setWordToEdit={setWordToEdit}
-      />
+
+      {role === 'admin' ? (
+        <KamusForm 
+          onSuccess={fetchWords} 
+          token={token} 
+          wordToEdit={wordToEdit} 
+          setWordToEdit={setWordToEdit}
+        />
+      ) : (
+        <div style={{ textAlign: 'center', marginBottom: '20px', padding: '15px', background: '#e9ecef', borderRadius: '8px' }}>
+          <p style={{ margin: 0 }}>Selamat datang! Silakan cari istilah yang Anda butuhkan di bawah ini.</p>
+        </div>
+      )}
 
       <hr style={{ border: '0', borderTop: '1px solid #dee2e6', margin: '40px 0' }}/>
       
+      <div className="search-container">
+        <input 
+          type="text" 
+          className="search-input"
+          placeholder="Cari kata lalu tekan Enter..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              saveToHistory(searchTerm);
+            }
+          }}
+        />
+
+        {history.length > 0 && (
+          <div className="history-wrapper">
+            <span style={{ fontSize: '0.85rem', color: '#6c757d', marginRight: '5px' }}>Riwayat:</span>
+            
+            {history.map((item, index) => (
+              <button 
+                key={index} 
+                onClick={() => handleHistoryClick(item)}
+                className="history-tag"
+              >
+                {item}
+              </button>
+            ))}
+
+            <button onClick={clearHistory} className="history-clear">
+              Hapus Semua
+            </button>
+          </div>
+        )}
+      </div>
+
       <KamusList 
-        words={words} 
+        words={filteredWords} 
         role={role} 
         token={token}
         onEdit={(word) => setWordToEdit(word)} 
