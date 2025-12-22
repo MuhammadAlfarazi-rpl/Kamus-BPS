@@ -1,9 +1,9 @@
 import LoginFunc from "../../components/auth/Login"
 
-const Login = () => {
+const Login = ({ onLogin, onSwitchToRegister }) => {
   return (
     <div>
-      <LoginFunc />
+      <LoginFunc onLogin={onLogin} onSwitchToRegister={onSwitchToRegister} />
     </div>
   );
 };
