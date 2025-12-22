@@ -153,3 +153,26 @@
     margin-bottom: 20px; 
     color: #0056b3 ;
 }
+
+.btn-audio {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-audio:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 86, 179, 0.1);
+  transform: scale(1.1);
+}
+
+.btn-audio:active {
+  transform: scale(0.95);
+}
