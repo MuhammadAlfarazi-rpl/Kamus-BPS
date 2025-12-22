@@ -39,7 +39,7 @@ function App() {
           </span> 
         </strong> 
          
-        <button onClick={handleLogout} style={{ padding: '8px 18px', background: '#4dabf7', color: '#fff', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem'}}> Logout </button> </div>
+        <button onClick={handleLogout} style={{ padding: '8px 18px', background: '#1c7ed6', color: '#fff', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem'}}> Logout </button> </div>
 
       <Dashboard token={user.token} role={user.role} />
     </div>
