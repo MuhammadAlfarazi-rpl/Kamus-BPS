@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Kamus.css';
 
-const KamusForm = ({ onSuccess, token }) => {
+const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
   const [form, setForm] = useState({ 
     term: '', 
     definition: '', 
@@ -11,20 +11,38 @@ const KamusForm = ({ onSuccess, token }) => {
   });
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (wordToEdit) {
+      setForm({
+        term: wordToEdit.term,
+        definition: wordToEdit.definition,
+        pronunciation: wordToEdit.pronunciation || '',
+        example: wordToEdit.example || ''
+      });
+    } else {
+      setForm({ term: '', definition: '', pronunciation: '', example: '' });
+    }
+  }, [wordToEdit]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/words', form, {
-        headers: {
-          Authorization: 'Bearer ${token}'
-        }
-      });
+      const config = { headers: { Authorization: `Bearer ${token}` } };
+      
+      if (wordToEdit) {
+        await axios.put(`http://localhost:5000/words/${wordToEdit.id}`, form, config);
+        alert("Berhasil diperbarui!");
+        setWordToEdit(null);
+      } else {
+        await axios.post('http://localhost:5000/words', form, config);
+      }
+
       setForm({ term: '', definition: '', pronunciation: '', example: '' }); 
       onSuccess(); 
     } catch (err) {
-      console.error("Error saving word:", err);
-      alert("Gagal menyimpan data.");
+      console.error(err);
+      alert("Gagal menyimpan: " + (err.response?.data?.message || err.message));
     } finally {
       setLoading(false);
     }

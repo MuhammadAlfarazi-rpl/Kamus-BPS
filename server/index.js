@@ -119,6 +119,42 @@ app.post('/words', async (req, res) => {
   res.json(result.rows[0]);
 });
 
+app.put('/words/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+  const { term, definition, pronunciation, example } = req.body;
+  
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: "Hanya Admin yang boleh mengedit." });
+  }
+
+  try {
+    const result = await pool.query(
+      'UPDATE words SET term=$1, definition=$2, pronunciation=$3, example=$4 WHERE id=$5 RETURNING *',
+      [term, definition, pronunciation, example, id]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Gagal mengupdate data");
+  }
+});
+
+app.delete('/words/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
+
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: "Hanya Admin yang boleh menghapus." });
+  }
+
+  try {
+    await pool.query('DELETE FROM words WHERE id=$1', [id]);
+    res.json({ message: "Berhasil dihapus" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Gagal menghapus data");
+  }
+});
+
 app.listen(5000, () => {
   console.log('Server berjalan di port 5000');
 });
