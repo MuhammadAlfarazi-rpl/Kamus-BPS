@@ -1,4 +1,4 @@
-import Kamus from "./components/Kamus/Kamus"
+import Kamus from "./page/dashboard/dashboard"
 
 const App = () => {
   return (
