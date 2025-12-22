@@ -20,7 +20,6 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
     
     if (window.confirm("Yakin ingin menghapus?")) {
       try {
-        const axios = require('axios'); // Atau import di atas
         await axios.delete(`http://localhost:5000/words/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });

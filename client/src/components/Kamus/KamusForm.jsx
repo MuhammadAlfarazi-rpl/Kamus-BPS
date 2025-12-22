@@ -35,7 +35,6 @@ const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
         alert("Berhasil diperbarui!");
         setWordToEdit(null);
       } else {
-        // Mode CREATE
         await axios.post('http://localhost:5000/words', form, config);
       }
 
