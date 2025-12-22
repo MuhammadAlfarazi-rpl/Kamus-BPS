@@ -16,9 +16,9 @@ const LoginFunc = ({ onLogin, onSwitchToRegister }) => {
   };
 
   return (
-    <div className="kamus-container" style={{ maxWidth: '400px' }}>
+    <div className="kamus-container auth-box" style={{ maxWidth: '400px' }}>
       <h2 className="kamus-title">Login</h2>
-      <form onSubmit={handleSubmit} className="kamus-form">
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input className="form-input" type="text" placeholder="Username" 
             onChange={e => setForm({...form, username: e.target.value})} />

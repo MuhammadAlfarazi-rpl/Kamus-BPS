@@ -110,7 +110,7 @@ app.get('/words', async (req, res) => {
   res.json(result.rows);
 });
 
-app.post('/words', async (req, res) => {
+app.post('/words', authenticateToken, async (req, res) => {
   const { term, definition, pronunciation, example } = req.body;
   if (req.user.role !== 'admin') {
     return res.status(403).json({ message: "Maaf, hanya Admin yang boleh menambah kata." });
@@ -119,8 +119,8 @@ app.post('/words', async (req, res) => {
     const created_by = req.user.username;
 
     const result = await pool.query(
-      'INSERT INTO words (term, definition, pronunciation, example, created_by) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [term, definition, pronunciation, example, created_by]
+      'INSERT INTO words (term, definition, pronunciation, example) VALUES ($1, $2, $3, $4) RETURNING *',
+      [term, definition, pronunciation, example]
     );
     res.json(result.rows[0]);
   } catch (err) {

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
     --primary-color: #0056b3; 
     --primary-hover: #004494;
@@ -11,11 +13,51 @@
     --radius: 8px;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background-image: url("../../assets/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(8px);
+    transform: scale(1.05); 
+
+    z-index: -2;
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.40);
+    z-index: -1;
+}
+
 .kamus-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--card-bg);
+    border-radius: 25px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+
+    width: 900px;          
+    padding: 60px;
     color: var(--text-main);
 }
 
@@ -49,7 +91,6 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
 }
 
 .form-input:focus,
@@ -67,7 +108,7 @@
 .btn-submit {
     width: 100%;
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
     border: none;
     padding: 14px;
     font-size: 1rem;
@@ -112,7 +153,6 @@
 }
 
 .word-term {
-    margin: 0;
     font-size: 1.5rem;
     color: var(--primary-color);
 }
@@ -143,13 +183,44 @@
     padding: 40px;
     color: var(--text-secondary);
     font-style: italic;
-    background-color: #f8f9fa;
+    background-color: var(--bg-color);
     border-radius: var(--radius);
     border: 2px dashed var(--border-color);
 }
 
 .header-form {
-    margin-top: 0; 
-    margin-bottom: 20px; 
-    color: #0056b3 ;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.auth-box {
+    animation: fadeSlideIn 1.3s ease forwards;
+     will-change: transform, opacity;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+button {
+    transition: all 0.4s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+}
+
+.form-input {
+    transition: all 0.50s ease;
+}
+
+.form-input:focus {
+    transform: scale(1.02);
 }

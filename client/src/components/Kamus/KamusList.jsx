@@ -61,10 +61,7 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
           <div className="word-body">
             <span className="word-pronunciation">{word.pronunciation}</span>
             <p className="word-definition">{word.definition}</p>
-            {word.example && <div className="word-example-box">"{word.example}"</div>}
-            <div style={{marginTop: '10px', fontSize: '0.8rem', color: '#888'}}>
-                Ditambahkan oleh: <b>{word.created_by || '-'}</b>
-             </div>
+            {word.example && <div className="word-example-box">"{word.example}"</div>}            
           </div>
         </div>
       ))}
