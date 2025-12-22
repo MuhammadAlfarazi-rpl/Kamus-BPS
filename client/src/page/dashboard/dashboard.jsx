@@ -1,9 +1,9 @@
 import Kamus from "../../components/Kamus/Kamus"
 
-const Dashboard = () => {
+const Dashboard = ({ token, role }) => {
   return (
     <div>
-      <Kamus />
+      <Kamus token={token} role={role} />
     </div>
   );
 };

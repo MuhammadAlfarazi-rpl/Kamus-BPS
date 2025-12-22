@@ -1,4 +1,4 @@
-import Kamus from "./page/dashboard/dashboard"
+import Dashboard from "./page/dashboard/dashboard"
 import Login from "./page/auth/LoginPage"
 import Register from "./page/auth/RegisterPage"
 import { useState } from 'react';
@@ -31,7 +31,7 @@ function App() {
         <button onClick={handleLogout} style={{ padding: '5px 10px', cursor: 'pointer' }}>Logout</button>
       </div>
 
-      <Kamus token={user.token} role={user.role} />
+      <Dashboard token={user.token} role={user.role} />
     </div>
   );
 }

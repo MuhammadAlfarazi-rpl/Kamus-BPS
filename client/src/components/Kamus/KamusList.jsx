@@ -3,6 +3,8 @@ import axios from 'axios';
 
 const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
 
+  console.log("Role saya adalah:", role);
+
   const handleSpeak = (text) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text);
