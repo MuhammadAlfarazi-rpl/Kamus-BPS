@@ -31,10 +31,15 @@ function App() {
 
   return (
     <div>
-      <div style={{ padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#eee' }}>
-        <span>Halo, <b>{user.username}</b> ({user.role})</span>
-        <button onClick={handleLogout} style={{ padding: '5px 10px', cursor: 'pointer' }}>Logout</button>
-      </div>
+      <div style={{ padding: '18px 45px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', color: '#000', borderRadius: '0 0 16px 16px', boxShadow: '0 6px 18px rgba(0,0,0,0.14)', marginBottom: '30px'}}>
+        
+        <strong style={{ fontSize: '0.95rem' }}> Halo, {user.username} 
+          <span style={{ marginLeft: '8px', background: '#e7f5ff', color: '#1c7ed6', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center'}}> 
+            {user.role} 
+          </span> 
+        </strong> 
+         
+        <button onClick={handleLogout} style={{ padding: '8px 18px', background: '#4dabf7', color: '#fff', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem'}}> Logout </button> </div>
 
       <Dashboard token={user.token} role={user.role} />
     </div>
