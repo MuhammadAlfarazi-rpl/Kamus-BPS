@@ -28,12 +28,21 @@ function Kamus({token, role}) {
   return (
     <div className="kamus-container">
       <h1 className="kamus-title">Kamus Kata Badan Pusat Statistik</h1>
-      <KamusForm 
-        onSuccess={fetchWords} 
-        token={token} 
-        wordToEdit={wordToEdit} 
-        setWordToEdit={setWordToEdit}
-      />
+
+      {role === 'admin' ? (
+        <KamusForm 
+          onSuccess={fetchWords} 
+          token={token} 
+          wordToEdit={wordToEdit} 
+          setWordToEdit={setWordToEdit}
+        />
+
+      ) : (
+        <div style={{ textAlign: 'center', marginBottom: '20px', padding: '15px', background: '#e9ecef', borderRadius: '8px' }}>
+          <p style={{ margin: 0 }}>Selamat datang! Silakan cari istilah yang Anda butuhkan di bawah ini.</p>
+        </div>
+      )}
+      
 
       <hr style={{ border: '0', borderTop: '1px solid #dee2e6', margin: '40px 0' }}/>
       
