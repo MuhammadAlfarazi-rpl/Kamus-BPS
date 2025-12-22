@@ -4,7 +4,7 @@ import KamusForm from './KamusForm';
 import KamusList from './KamusList';
 import './Kamus.css';
 
-function Kamus() {
+function Kamus({token, role}) {
   const [words, setWords] = useState([]);
 
   const fetchWords = async () => {
@@ -23,10 +23,11 @@ function Kamus() {
   return (
     <div className="kamus-container">
       <h1 className="kamus-title">Kamus Kata Badan Pusat Statistik</h1>
-      <KamusForm onSuccess={fetchWords} />
+      <KamusForm onSuccess={fetchWords} token={token} />
+
       <hr style={{ border: '0', borderTop: '1px solid #dee2e6', margin: '40px 0' }}/>
-      <KamusList words={words} />
       
+      <KamusList words={words} />
     </div>
   );
 }
