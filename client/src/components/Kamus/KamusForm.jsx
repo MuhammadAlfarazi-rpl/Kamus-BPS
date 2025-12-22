@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Kamus.css';
 
-const KamusForm = ({ onSuccess }) => {
+const KamusForm = ({ onSuccess, token }) => {
   const [form, setForm] = useState({ 
     term: '', 
     definition: '', 
@@ -15,7 +15,11 @@ const KamusForm = ({ onSuccess }) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post('http://localhost:5000/words', form);
+      await axios.post('http://localhost:5000/words', form, {
+        headers: {
+          Authorization: 'Bearer ${token}'
+        }
+      });
       setForm({ term: '', definition: '', pronunciation: '', example: '' }); 
       onSuccess(); 
     } catch (err) {
