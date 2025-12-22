@@ -18,7 +18,7 @@ const RegisterFunc = ({ onSwitchToLogin }) => {
 
   return (
     <div className="kamus-container" style={{ maxWidth: '400px' }}>
-      <h2 className="kamus-title">Daftar</h2>
+      <h2 className="kamus-title">Register</h2>
       
       <form onSubmit={handleSubmit}>
         <div className="form-group">
