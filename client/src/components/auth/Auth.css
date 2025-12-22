@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 :root {
     --primary-color: #0056b3; 
     --primary-hover: #004494;
@@ -11,11 +13,30 @@
     --radius: 8px;
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #8FABD4, #D4F6FF);
+}
+
+/* Container utama */
 .kamus-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--card-bg);
+    border-radius: 25px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 90%;
+    margin: 90px;
+    padding: 60px 60px;
     color: var(--text-main);
 }
 
@@ -28,6 +49,7 @@
     letter-spacing: -0.5px;
 }
 
+/* Form */
 .kamus-form {
     background-color: var(--card-bg);
     padding: 24px;
@@ -49,7 +71,6 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     transition: border-color 0.2s, box-shadow 0.2s;
-    box-sizing: border-box;
 }
 
 .form-input:focus,
@@ -67,7 +88,7 @@
 .btn-submit {
     width: 100%;
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
     border: none;
     padding: 14px;
     font-size: 1rem;
@@ -82,6 +103,7 @@
     background-color: var(--primary-hover);
 }
 
+/* List kata */
 .word-list {
     display: flex;
     flex-direction: column;
@@ -112,7 +134,6 @@
 }
 
 .word-term {
-    margin: 0;
     font-size: 1.5rem;
     color: var(--primary-color);
 }
@@ -138,18 +159,18 @@
     color: #444;
 }
 
+/* Empty state */
 .empty-state {
     text-align: center;
     padding: 40px;
     color: var(--text-secondary);
     font-style: italic;
-    background-color: #f8f9fa;
+    background-color: var(--bg-color);
     border-radius: var(--radius);
     border: 2px dashed var(--border-color);
 }
 
 .header-form {
-    margin-top: 0; 
-    margin-bottom: 20px; 
-    color: #0056b3 ;
+    margin-bottom: 20px;
+    color: var(--primary-color);
 }
