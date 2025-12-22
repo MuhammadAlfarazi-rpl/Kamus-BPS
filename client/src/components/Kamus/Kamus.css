@@ -176,3 +176,38 @@
 .btn-audio:active {
   transform: scale(0.95);
 }
+
+.search-container {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 20px;
+  padding-left: 45px;
+  font-size: 1.1rem;
+  border: 1px solid #dfe1e5;
+  border-radius: 50px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.search-input:focus {
+  outline: none;
+  box-shadow: 0 4px 10px rgba(0, 86, 179, 0.15);
+  border-color: var(--primary-color);
+}
+
+.search-container::before {
+  content: "🔍";
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  opacity: 0.5;
+  pointer-events: none;
+}

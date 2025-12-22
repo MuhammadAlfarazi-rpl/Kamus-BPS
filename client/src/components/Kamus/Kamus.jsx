@@ -7,6 +7,7 @@ import './Kamus.css';
 function Kamus({token, role}) {
   const [words, setWords] = useState([]);
   const [wordToEdit, setWordToEdit] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchWords = async () => {
     try {
@@ -24,6 +25,13 @@ function Kamus({token, role}) {
   const handleCancelEdit = () => {
     setWordToEdit(null);
   }
+
+  const filteredWords = words.filter((word) => {
+    const searchLower = searchTerm.toLowerCase();
+    const termMatch = word.term.toLowerCase().includes(searchLower);
+    const defMatch = word.definition.toLowerCase().includes(searchLower);
+    return termMatch || defMatch;
+  });
 
   return (
     <div className="kamus-container">
@@ -45,9 +53,19 @@ function Kamus({token, role}) {
       
 
       <hr style={{ border: '0', borderTop: '1px solid #dee2e6', margin: '40px 0' }}/>
+
+      <div className="search-container">
+        <input 
+          type="text" 
+          className="search-input"
+          placeholder="Cari kata atau definisi..." 
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       
       <KamusList 
-        words={words} 
+        words={filteredWords} 
         role={role} 
         token={token}
         onEdit={(word) => setWordToEdit(word)} 
