@@ -1,9 +1,9 @@
 import RegisterFunc from "../../components/auth/Register"
 
-const Register = () => {
+const Register = ({ onSwitchToLogin }) => {
   return (
     <div>
-      <RegisterFunc />
+      <RegisterFunc onSwitchToLogin={onSwitchToLogin} />
     </div>
   );
 };

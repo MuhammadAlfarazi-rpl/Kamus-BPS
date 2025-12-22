@@ -19,7 +19,6 @@ const RegisterFunc = ({ onSwitchToLogin }) => {
   return (
     <div className="kamus-container" style={{ maxWidth: '400px' }}>
       <h2 className="kamus-title">Daftar Akun Baru</h2>
-      <p style={{textAlign:'center', fontSize:'0.9rem', color:'#666'}}>Gunakan username <b>'admin'</b> untuk menjadi Admin.</p>
       
       <form onSubmit={handleSubmit} className="kamus-form">
         <div className="form-group">
