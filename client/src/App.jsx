@@ -4,16 +4,21 @@ import Register from "./page/auth/RegisterPage"
 import { useState } from 'react';
 
 function App() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const savedUser = localStorage.getItem('user');
+    return savedUser ? JSON.parse(savedUser) : null;
+  });
   const [page, setPage] = useState('login');
 
   const handleLogin = (userData) => {
     setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
     setPage('home');
   };
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.removeItem('user');
     setPage('login');
   };
 
