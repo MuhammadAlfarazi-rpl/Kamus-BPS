@@ -1,6 +1,7 @@
 import './Kamus.css';
 import axios from 'axios';
 import speakerIcon from '../../assets/speaker.svg'
+import AnimatedList from '../../components/animatedList/animatedList'
 
 const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
 
@@ -34,20 +35,20 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
   if (words.length === 0) return <div className="empty-state"><p>Data kosong.</p></div>;
 
   return (
-    <div className="word-list">
-      {words.map((word) => (
-        <div key={word.id} className="word-card">
+    <AnimatedList
+      items={words} 
+      showGradients={true}
+      renderItem={(word) => (
+        <div className="word-card">
           <div className="word-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <h3 className="word-term">{word.term}</h3>
+              
+              {/* Tombol Speaker */}
               <button onClick={() => handleSpeak(word.term)} className="btn-audio">
-                <img 
-                  src={speakerIcon} 
-                  alt="Listen" 
-                  className="speaker-icon-img"
-                  style={{ width: '20px', height: '20px' }}
-              />
+                <img src={speakerIcon} alt="Listen" style={{ width: '20px', height: '20px' }} />
               </button>
+
             </div>
             
             {role === 'admin' && (
@@ -69,11 +70,11 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
           <div className="word-body">
             <span className="word-pronunciation">{word.pronunciation}</span>
             <p className="word-definition">{word.definition}</p>
-            {word.example && <div className="word-example-box">"{word.example}"</div>}            
+            {word.example && <div className="word-example-box">"{word.example}"</div>}
           </div>
         </div>
-      ))}
-    </div>
+      )}
+    />
   );
 };
 

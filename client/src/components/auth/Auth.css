@@ -32,9 +32,9 @@ body {
     background: var(--card-bg);
     border-radius: 25px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
-
-    width: 900px;          
-    padding: 60px;
+    width: 100%;
+    max-width: 1100px;          
+    padding: 70px;
     color: var(--text-main);
 }
 
@@ -101,9 +101,10 @@ body {
 }
 
 .word-list {
-    display: flex;
+    display: grid;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
 }
 
 .word-card {

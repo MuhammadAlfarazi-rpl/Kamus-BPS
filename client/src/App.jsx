@@ -33,11 +33,11 @@ function App() {
     <div>
       <div style={{ padding: '18px 45px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#ffffff', color: '#000', borderRadius: '0 0 16px 16px', boxShadow: '0 6px 18px rgba(0,0,0,0.14)', marginBottom: '30px'}}>
         
-        <strong style={{ fontSize: '0.95rem' }}> Halo, {user.username} 
+        <strong style={{ fontSize: '0.95rem', color: '#1c7ed6' }}> Halo, {user.username} 
           <span style={{ marginLeft: '8px', background: '#e7f5ff', color: '#1c7ed6', padding: '4px 12px', borderRadius: '999px', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center'}}> 
             {user.role} 
           </span> 
-        </strong> 
+        </strong>  
          
         <button onClick={handleLogout} style={{ padding: '8px 18px', background: '#1c7ed6', color: '#fff', border: 'none', borderRadius: '10px', cursor: 'pointer', fontWeight: '600', fontSize: '0.85rem'}}> Logout </button> </div>
 
