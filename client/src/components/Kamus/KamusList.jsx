@@ -1,5 +1,6 @@
 import './Kamus.css';
 import axios from 'axios';
+import speakerIcon from '../../assets/speaker.svg'
 
 const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
 
@@ -39,7 +40,14 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
           <div className="word-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <h3 className="word-term">{word.term}</h3>
-              <button onClick={() => handleSpeak(word.term)} className="btn-audio">🔊</button>
+              <button onClick={() => handleSpeak(word.term)} className="btn-audio">
+                <img 
+                  src={speakerIcon} 
+                  alt="Listen" 
+                  className="speaker-icon-img"
+                  style={{ width: '20px', height: '20px' }}
+              />
+              </button>
             </div>
             
             {role === 'admin' && (

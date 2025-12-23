@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import KamusForm from './KamusForm';
 import KamusList from './KamusList';
+import searchIcon from '../../assets/search.svg'
 import './Kamus.css';
 
 function Kamus({token, role}) {
@@ -75,6 +76,12 @@ function Kamus({token, role}) {
       <hr style={{ border: '0', borderTop: '1px solid #dee2e6', margin: '40px 0' }}/>
       
       <div className="search-container">
+        <div style={{ position: 'relative' }}>
+        <img 
+          src={searchIcon} 
+          alt="Search" 
+          className="search-icon-img" 
+        />
         <input 
           type="text" 
           className="search-input"
@@ -87,6 +94,7 @@ function Kamus({token, role}) {
             }
           }}
         />
+        </div>
 
         {history.length > 0 && (
           <div className="history-wrapper">

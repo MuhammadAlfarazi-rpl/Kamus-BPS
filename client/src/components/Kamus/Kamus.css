@@ -201,15 +201,29 @@
   border-color: var(--primary-color);
 }
 
-.search-container::before {
-  content: "🔍";
+.search-icon-img {
   position: absolute;
-  left: 18px;
+  left: 15px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 1.2rem;
-  opacity: 0.5;
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
   pointer-events: none;
+}
+
+.btn-audio {
+  background-color: #d1f4fa;
+}
+
+.btn-audio img {
+  transition: all 0.2s ease;
+  opacity: 0.6;
+}
+
+.btn-audio:hover img {
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .history-wrapper {
