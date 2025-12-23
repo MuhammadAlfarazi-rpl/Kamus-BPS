@@ -58,7 +58,7 @@ function Kamus({token, role}) {
 
   return (
     <div className="kamus-container">
-      <h1 className="kamus-title">Kamus Kata Badan Pusat Statistik</h1>
+      <h1 className="kamus-title">Kamus Statistik Buat Orang Ngerti</h1>
 
       {role === 'admin' ? (
         <KamusForm 
