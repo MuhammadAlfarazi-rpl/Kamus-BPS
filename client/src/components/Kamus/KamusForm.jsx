@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Kamus.css';
 
-const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
+const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit, onShowToast }) => {
   const [form, setForm] = useState({ 
     term: '', 
     definition: '', 
@@ -32,17 +32,18 @@ const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
       
       if (wordToEdit) {
         await axios.put(`http://localhost:5000/words/${wordToEdit.id}`, form, config);
-        alert("Berhasil diperbarui!");
+        onShowToast("Kata berhasil diperbarui!", "success");
         setWordToEdit(null);
       } else {
         await axios.post('http://localhost:5000/words', form, config);
+        onShowToast("Kata baru berhasil ditambahkan!", "success");
       }
 
       setForm({ term: '', definition: '', pronunciation: '', example: '' }); 
       onSuccess(); 
     } catch (err) {
       console.error(err);
-      alert("Gagal menyimpan data.");
+      onShowToast("Gagal menyimpan data.", "error");
     } finally {
       setLoading(false);
     }

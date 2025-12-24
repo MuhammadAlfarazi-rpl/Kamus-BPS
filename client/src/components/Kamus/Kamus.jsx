@@ -3,12 +3,14 @@ import axios from 'axios';
 import KamusForm from './KamusForm';
 import KamusList from './KamusList';
 import searchIcon from '../../assets/search.svg'
+import Toast from '../../components/toast/Toast'
 import './Kamus.css';
 
 function Kamus({token, role}) {
   const [words, setWords] = useState([]);
   const [wordToEdit, setWordToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [toast, setToast] = useState(null);
   const [history, setHistory] = useState(() => {
     const saved = localStorage.getItem('searchHistory');
     return saved ? JSON.parse(saved) : [];
@@ -49,6 +51,14 @@ function Kamus({token, role}) {
     setWordToEdit(null);
   }
 
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+  };
+
+  const handleCloseToast = () => {
+    setToast(null);
+  };
+
   const filteredWords = words.filter((word) => {
     const searchLower = searchTerm.toLowerCase();
     const termMatch = word.term.toLowerCase().includes(searchLower);
@@ -58,6 +68,13 @@ function Kamus({token, role}) {
 
   return (
     <div className="kamus-container">
+      {toast && (
+        <Toast 
+          message={toast.message} 
+          type={toast.type} 
+          onClose={handleCloseToast} 
+        />
+      )}
       <h1 className="kamus-title">Kamus Statistik Buat Orang Ngerti</h1>
 
       {role === 'admin' ? (
@@ -66,6 +83,7 @@ function Kamus({token, role}) {
           token={token} 
           wordToEdit={wordToEdit} 
           setWordToEdit={setWordToEdit}
+          onShowToast={showToast}
         />
       ) : (
         <div style={{ textAlign: 'center', marginBottom: '20px', padding: '15px', background: '#e9ecef', borderRadius: '8px' }}>
