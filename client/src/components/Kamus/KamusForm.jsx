@@ -67,7 +67,7 @@ const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
       </div>
       <div className="form-group">
         <input className="form-input" type="text" placeholder="Ejaan (cth: /buku/)" 
-          value={form.pronunciation} onChange={(e) => setForm({ ...form, pronunciation: e.target.value })} />
+          value={form.pronunciation} onChange={(e) => setForm({ ...form, pronunciation: e.target.value })} required />
       </div>
       <div className="form-group">
         <textarea className="form-textarea" placeholder="Definisi" rows={3}
@@ -75,7 +75,7 @@ const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
       </div>
       <div className="form-group">
         <input className="form-input" type="text" placeholder="Contoh Kalimat" 
-          value={form.example} onChange={(e) => setForm({ ...form, example: e.target.value })} />
+          value={form.example} onChange={(e) => setForm({ ...form, example: e.target.value })} required />
       </div>
 
       <div style={{ display: 'flex', gap: '10px' }}>
