@@ -26,6 +26,8 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
         await axios.delete(`http://localhost:5000/words/${id}`, {
             headers: { Authorization: `Bearer ${token}` }
         });
+
+        alert("Berhasil dihapus!");
         onDeleteSuccess();
       } catch (err) {
         alert("Gagal hapus.");
