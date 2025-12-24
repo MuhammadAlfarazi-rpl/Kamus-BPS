@@ -35,7 +35,8 @@ const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit }) => {
         alert("Berhasil diperbarui!");
         setWordToEdit(null);
       } else {
-        await axios.post('http://localhost:5000/words', form, config);
+        await axios.post(`http://localhost:5000/words`, form, config);
+        alert("Berhasil ditambahkan!");
       }
 
       setForm({ term: '', definition: '', pronunciation: '', example: '' }); 
