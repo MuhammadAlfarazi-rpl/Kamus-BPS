@@ -35,10 +35,8 @@ const KamusForm = ({ onSuccess, token, wordToEdit, setWordToEdit, onShowToast })
         onShowToast("Kata berhasil diperbarui!", "success");
         setWordToEdit(null);
       } else {
-<<<<<<< HEAD
         await axios.post('http://localhost:5000/words', form, config);
         onShowToast("Kata baru berhasil ditambahkan!", "success");
->>>>>>> f39ab93c2a553e6776c2498653802241941ce6c3
       }
 
       setForm({ term: '', definition: '', pronunciation: '', example: '' }); 
