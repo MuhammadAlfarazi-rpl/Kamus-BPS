@@ -8,14 +8,15 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
   console.log("Role saya adalah:", role);
 
   const handleSpeak = (text) => {
-    if ('speechSynthesis' in window) {
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'id-ID'; 
-      utterance.rate = 0.9;
-      window.speechSynthesis.speak(utterance);
-    } else {
+    if (!('speechSynthesis' in window)) {
       alert("Browser tidak support audio.");
+      return;
     }
+    window.speechSynthesis.cancel(); 
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'id-ID'; 
+    utterance.rate = 0.9;
+    window.speechSynthesis.speak(utterance);
   };
 
   const handleDelete = async (id) => {
@@ -43,9 +44,7 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
           <div className="word-header">
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <h3 className="word-term">{word.term}</h3>
-              
-              {/* Tombol Speaker */}
-              <button onClick={() => handleSpeak(word.term)} className="btn-audio">
+              <button onClick={() => handleSpeak(`${word.term}. ${word.definition}`)} className="btn-audio">
                 <img src={speakerIcon} alt="Listen" style={{ width: '20px', height: '20px' }} />
               </button>
 
