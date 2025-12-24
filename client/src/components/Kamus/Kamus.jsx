@@ -88,6 +88,7 @@ function Kamus({token, role}) {
           placeholder="Cari kata lalu tekan Enter..." 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={(e) => e.target.select()}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               saveToHistory(searchTerm);
