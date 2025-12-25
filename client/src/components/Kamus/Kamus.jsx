@@ -78,24 +78,13 @@ function Kamus({token, role}) {
       <h1 className="kamus-title">Kamus Statistik Buat Orang Ngerti</h1>
 
       {role === 'admin' ? (
-        <>
-          <KamusForm 
-            onSuccess={fetchWords} 
-            token={token} 
-            wordToEdit={wordToEdit} 
-            setWordToEdit={setWordToEdit}
-            onShowToast={showToast}
-          />
-
-          <KamusList
-            words={words}
-            role={role}
-            token={token}
-            onEdit={setWordToEdit}
-            onDeleteSuccess={fetchWords}
-            onShowToast={showToast}   
-          />
-        </>
+        <KamusForm 
+          onSuccess={fetchWords} 
+          token={token} 
+          wordToEdit={wordToEdit} 
+          setWordToEdit={setWordToEdit}
+          onShowToast={showToast}
+        />
       ) : (
         <div style={{ textAlign: 'center', marginBottom: '20px', padding: '15px', background: '#e9ecef', borderRadius: '8px' }}>
           <p style={{ margin: 0 }}>Selamat datang! Silakan cari istilah yang Anda butuhkan di bawah ini.</p>
@@ -153,6 +142,7 @@ function Kamus({token, role}) {
         token={token}
         onEdit={(word) => setWordToEdit(word)} 
         onDeleteSuccess={fetchWords}
+        onShowToast={showToast}
       />
     </div>
   );
