@@ -3,7 +3,7 @@ import axios from 'axios';
 import speakerIcon from '../../assets/speaker.svg'
 import AnimatedList from '../../components/animatedList/animatedList'
 
-const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
+const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast }) => {
 
   console.log("Role saya adalah:", role);
 
@@ -27,10 +27,10 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess }) => {
             headers: { Authorization: `Bearer ${token}` }
         });
 
-        alert("Berhasil dihapus!");
+        onShowToast("Berhasil dihapus!", "success");
         onDeleteSuccess();
       } catch (err) {
-        alert("Gagal hapus.");
+        onShowToast("Gagal hapus.", "error");
       }
     }
   };
