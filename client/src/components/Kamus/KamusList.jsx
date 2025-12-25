@@ -1,11 +1,17 @@
+import { useState } from 'react';
 import './Kamus.css';
 import axios from 'axios';
 import speakerIcon from '../../assets/speaker.svg'
 import AnimatedList from '../../components/animatedList/animatedList'
 
-const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast }) => {
+const ITEMS_PER_PAGE = 10;
 
-  console.log("Role saya adalah:", role);
+const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(words.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentWords = words.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   const handleSpeak = (text) => {
     if (!('speechSynthesis' in window)) {
@@ -19,8 +25,7 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast })
     window.speechSynthesis.speak(utterance);
   };
 
-  const handleDelete = async (id) => {
-    
+  const handleDelete = async (id) => { 
     if (window.confirm("Yakin ingin menghapus?")) {
       try {
         await axios.delete(`http://localhost:5000/words/${id}`, {
@@ -38,8 +43,9 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast })
   if (words.length === 0) return <div className="empty-state"><p>Data kosong.</p></div>;
 
   return (
+    <>
     <AnimatedList
-      items={words} 
+      items={currentWords} 
       showGradients={true}
       renderItem={(word) => (
         <div className="word-card">
@@ -49,7 +55,6 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast })
               <button onClick={() => handleSpeak(`${word.term}. ${word.definition}`)} className="btn-audio">
                 <img src={speakerIcon} alt="Listen" style={{ width: '20px', height: '20px' }} />
               </button>
-
             </div>
             
             {role === 'admin' && (
@@ -76,6 +81,27 @@ const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast })
         </div>
       )}
     />
+
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(p => p - 1)}
+          >
+            Prev
+          </button>
+
+          <span>Halaman {currentPage} / {totalPages}</span>
+
+          <button
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(p => p + 1)}
+          >
+            Next
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
