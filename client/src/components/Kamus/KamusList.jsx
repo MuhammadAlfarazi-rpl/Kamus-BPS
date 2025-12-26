@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './Kamus.css';
 import axios from 'axios';
 import speakerIcon from '../../assets/speaker.svg'
@@ -8,7 +8,9 @@ const ITEMS_PER_PAGE = 10;
 
 const KamusList = ({ words, role, token, onEdit, onDeleteSuccess, onShowToast }) => {
   const [currentPage, setCurrentPage] = useState(1);
-
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [words]);
   const totalPages = Math.ceil(words.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentWords = words.slice(startIndex, startIndex + ITEMS_PER_PAGE);
