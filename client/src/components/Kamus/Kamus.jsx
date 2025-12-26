@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import KamusForm from './KamusForm';
 import KamusList from './KamusList';
@@ -15,6 +15,7 @@ function Kamus({token, role}) {
     const saved = localStorage.getItem('searchHistory');
     return saved ? JSON.parse(saved) : [];
   });
+  const formRef = useRef(null);
 
   const fetchWords = async () => {
     try {
@@ -45,6 +46,16 @@ function Kamus({token, role}) {
 
   const handleHistoryClick = (term) => {
     setSearchTerm(term);
+  };
+
+  const handleEditClick = (word) => {
+    setWordToEdit(word);
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
   };
 
   const handleCancelEdit = () => {
@@ -78,6 +89,7 @@ function Kamus({token, role}) {
       <h1 className="kamus-title">Kamus Statistik Buat Orang Ngerti</h1>
 
       {role === 'admin' ? (
+        <div ref={formRef}>
         <KamusForm 
           onSuccess={fetchWords} 
           token={token} 
@@ -85,6 +97,7 @@ function Kamus({token, role}) {
           setWordToEdit={setWordToEdit}
           onShowToast={showToast}
         />
+        </div>
       ) : (
         <div style={{ textAlign: 'center', marginBottom: '20px', padding: '15px', background: '#e9ecef', borderRadius: '8px' }}>
           <p style={{ margin: 0 }}>Selamat datang! Silakan cari istilah yang Anda butuhkan di bawah ini.</p>
@@ -140,7 +153,7 @@ function Kamus({token, role}) {
         words={filteredWords} 
         role={role} 
         token={token}
-        onEdit={(word) => setWordToEdit(word)} 
+        onEdit={handleEditClick}
         onDeleteSuccess={fetchWords}
         onShowToast={showToast}
       />
