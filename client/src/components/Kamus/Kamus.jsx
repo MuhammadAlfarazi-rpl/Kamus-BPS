@@ -1,18 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import KamusForm from './KamusForm';
 import KamusList from './KamusList';
 import searchIcon from '../../assets/search.svg'
+import Toast from '../../components/toast/Toast'
 import './Kamus.css';
 
 function Kamus({token, role}) {
   const [words, setWords] = useState([]);
   const [wordToEdit, setWordToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [toast, setToast] = useState(null);
   const [history, setHistory] = useState(() => {
     const saved = localStorage.getItem('searchHistory');
     return saved ? JSON.parse(saved) : [];
   });
+  const formRef = useRef(null);
 
   const fetchWords = async () => {
     try {
@@ -45,9 +48,27 @@ function Kamus({token, role}) {
     setSearchTerm(term);
   };
 
+  const handleEditClick = (word) => {
+    setWordToEdit(word);
+    if (formRef.current) {
+      formRef.current.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }
+  };
+
   const handleCancelEdit = () => {
     setWordToEdit(null);
   }
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+  };
+
+  const handleCloseToast = () => {
+    setToast(null);
+  };
 
   const filteredWords = words.filter((word) => {
     const searchLower = searchTerm.toLowerCase();
@@ -58,15 +79,25 @@ function Kamus({token, role}) {
 
   return (
     <div className="kamus-container">
-      <h1 className="kamus-title">Kamus Kata Badan Pusat Statistik</h1>
+      {toast && (
+        <Toast 
+          message={toast.message} 
+          type={toast.type} 
+          onClose={handleCloseToast} 
+        />
+      )}
+      <h1 className="kamus-title">Kamus Statistik Buat Orang Ngerti</h1>
 
       {role === 'admin' ? (
+        <div ref={formRef}>
         <KamusForm 
           onSuccess={fetchWords} 
           token={token} 
           wordToEdit={wordToEdit} 
           setWordToEdit={setWordToEdit}
+          onShowToast={showToast}
         />
+        </div>
       ) : (
         <div style={{ textAlign: 'center', marginBottom: '20px', padding: '15px', background: '#e9ecef', borderRadius: '8px' }}>
           <p style={{ margin: 0 }}>Selamat datang! Silakan cari istilah yang Anda butuhkan di bawah ini.</p>
@@ -88,6 +119,7 @@ function Kamus({token, role}) {
           placeholder="Cari kata lalu tekan Enter..." 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          onFocus={(e) => e.target.select()}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               saveToHistory(searchTerm);
@@ -121,8 +153,9 @@ function Kamus({token, role}) {
         words={filteredWords} 
         role={role} 
         token={token}
-        onEdit={(word) => setWordToEdit(word)} 
+        onEdit={handleEditClick}
         onDeleteSuccess={fetchWords}
+        onShowToast={showToast}
       />
     </div>
   );
